@@ -15,25 +15,25 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const MOCK_USERS = [
   {
     id: '1',
-    name: 'Alice Dupont',
-    email: 'alice.dupont@example.com',
+    name: 'Alice',
+    email: 'alice@gmail.com',
     password: 'password123',
     role: 'entrepreneur' as UserRole,
     profileImage: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '2',
-    name: 'Jean Martin',
-    email: 'jean.martin@example.com',
-    password: 'password456',
+    name: 'Viggo',
+    email: 'viggo@gmail.com',
+    password: 'password123',
     role: 'investor' as UserRole,
     profileImage: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '3',
-    name: 'Sophie Leblanc',
-    email: 'sophie.leblanc@example.com',
-    password: 'password789',
+    name: 'Arnold',
+    email: 'arnold@gmail.com',
+    password: 'password123',
     role: 'developer' as UserRole,
     profileImage: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
