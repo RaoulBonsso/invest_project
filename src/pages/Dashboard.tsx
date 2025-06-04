@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { mockProjects, mockTransactions } from '../data/mockData';
+import { mockUsers } from '../data/mockUsers';
 import { 
   BarChart, 
   TrendingUp, 
@@ -10,12 +11,22 @@ import {
   DollarSign, 
   Users, 
   Briefcase, 
-  Clock
+  Clock,
+  Mail,
+  Phone,
+  UserPlus
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
+  const [totalInvestment, setTotalInvestment] = useState(0);
+
+  // Calculer le montant total d'investissement pour tous les projets
+  useEffect(() => {
+    const total = mockProjects.reduce((sum, project) => sum + (project.investment || 0), 0);
+    setTotalInvestment(total);
+  }, []);
 
   if (!user) {
     return <div>Loading...</div>;
@@ -240,6 +251,19 @@ const Dashboard: React.FC = () => {
             >
               Transactions
             </button>
+            {user.role === 'developer' && (
+              <button
+                onClick={() => setActiveTab('users')}
+                className={`${
+                  activeTab === 'users'
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center`}
+              >
+                <Users className="mr-2 h-4 w-4" />
+                Utilisateurs
+              </button>
+            )}
           </nav>
         </div>
 
@@ -549,7 +573,123 @@ const Dashboard: React.FC = () => {
               )}
             </div>
           )}
+          
+          {/* Onglet Utilisateurs pour les développeurs */}
+          {activeTab === 'users' && user.role === 'developer' && (
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Gestion des utilisateurs</h3>
+              
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Utilisateur
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Email
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Rôle
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {mockUsers.map((user) => (
+                      <tr key={user.id}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-10 w-10">
+                              <img className="h-10 w-10 rounded-full" src={user.profileImage} alt="" />
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <Mail className="h-4 w-4 text-gray-400 mr-2" />
+                            <div className="text-sm text-gray-500">{user.email}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'entrepreneur' ? 'bg-purple-100 text-purple-800' : user.role === 'investor' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                            {user.role === 'entrepreneur' ? 'Entrepreneur' : user.role === 'investor' ? 'Investisseur' : 'Développeur'}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <button className="text-blue-600 hover:text-blue-900 mr-3">
+                            <Phone className="h-4 w-4" />
+                          </button>
+                          <button className="text-blue-600 hover:text-blue-900">
+                            <UserPlus className="h-4 w-4" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
+        
+        {/* Statistiques globales */}
+        {user.role === 'developer' && (
+          <div className="mt-8 bg-white shadow rounded-lg overflow-hidden">
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Statistiques globales</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 bg-blue-500 rounded-md p-3">
+                      <BarChart className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-5 w-0 flex-1">
+                      <dl>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Investissement total</dt>
+                        <dd className="text-lg font-semibold text-gray-900">{totalInvestment.toLocaleString('fr-FR')} €</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
+                      <Users className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-5 w-0 flex-1">
+                      <dl>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Nombre d'utilisateurs</dt>
+                        <dd className="text-lg font-semibold text-gray-900">{mockUsers.length}</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                      <Briefcase className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-5 w-0 flex-1">
+                      <dl>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Nombre de projets</dt>
+                        <dd className="text-lg font-semibold text-gray-900">{mockProjects.length}</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

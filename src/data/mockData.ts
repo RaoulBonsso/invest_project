@@ -1,4 +1,4 @@
-import { Project, Transaction } from '../types';
+import { Project, Transaction, User } from '../types';
 
 export const mockProjects: Project[] = [
   {

@@ -9,7 +9,6 @@ import {
   Tag, 
   TrendingUp, 
   Edit, 
-  Trash2, 
   MessageCircle, 
   Share2,
   AlertCircle
@@ -68,6 +67,30 @@ const ProjectDetails: React.FC = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setShowInvestModal(false);
+      
+      // Dans une application réelle, cela serait géré par une API
+      // Mise à jour du montant total d'investissement et du nombre d'investisseurs
+      const amount = parseFloat(investmentAmount);
+      if (project) {
+        project.investment = (project.investment || 0) + amount;
+        project.investors = (project.investors || 0) + 1;
+        
+        // Création d'une nouvelle transaction
+        const newTransaction = {
+          id: String(mockTransactions.length + 1),
+          projectId: project.id,
+          projectTitle: project.title,
+          amount: amount,
+          type: 'investment' as const,
+          status: 'completed' as const,
+          date: new Date().toISOString(),
+          from: user?.name || 'Utilisateur anonyme',
+          to: project.creatorName
+        };
+        
+        // Ajout de la transaction à la liste des transactions
+        mockTransactions.push(newTransaction);
+      }
       
       // Show success alert or redirect to a success page
       alert(`Investissement de ${investmentAmount}€ effectué avec succès pour ${project.title}`);
