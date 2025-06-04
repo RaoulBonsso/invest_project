@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
               <span className="ml-2 text-xl font-bold">Invest-Project</span>
             </Link>
             <p className="mt-2 text-gray-300 text-sm">
-              Votre plateforme pour l'achat et la vente de brevets. Connectez entrepreneurs, investisseurs et développeurs.
+              Votre plateforme pour l'achat et la vente de brevets. Connectez entrepreneurs et investisseurs.
             </p>
           </div>
           <div>

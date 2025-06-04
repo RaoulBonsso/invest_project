@@ -82,7 +82,7 @@ const Dashboard: React.FC = () => {
         main: totalInvested,
         mainLabel: 'Total investi',
         secondary: userTransactions.length,
-        secondaryLabel: 'Investissements',
+        secondaryLabel: 'Brevet acheté',
         tertiary: userProjects.filter(p => p.status === 'active').length,
         tertiaryLabel: 'Projets actifs'
       };

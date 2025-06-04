@@ -36,7 +36,7 @@ const LandingPage: React.FC = () => {
                 Échangez des brevets, réalisez l'innovation
               </h1>
               <p className="text-xl text-blue-100">
-                La première plateforme dédiée à l'échange de brevets entre entrepreneurs, investisseurs et développeurs.
+                La première plateforme dédiée à l'échange de brevets entre entrepreneurs et investisseurs.
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link
@@ -155,7 +155,7 @@ const LandingPage: React.FC = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Croissance Rapide</h3>
               <p className="text-gray-600">
-                Accélérez la croissance de vos projets en trouvant rapidement des investisseurs ou des développeurs qualifiés.
+                Accélérez la croissance de vos projets en trouvant rapidement des investisseurs qualifiés.
               </p>
             </div>
 

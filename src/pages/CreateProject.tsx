@@ -121,7 +121,7 @@ const CreateProject: React.FC = () => {
             <div className="px-4 sm:px-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900">Informations du projet</h3>
               <p className="mt-1 text-sm text-gray-600">
-                Fournissez des détails précis sur votre projet pour attirer les investisseurs et les développeurs.
+                Fournissez des détails précis sur votre projet pour attirer les investisseurs.
               </p>
             </div>
           </div>
@@ -197,7 +197,7 @@ const CreateProject: React.FC = () => {
                       )}
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
-                      Une description détaillée permet aux investisseurs et développeurs de mieux comprendre votre projet.
+                      Une description détaillée permet aux investisseurs de mieux comprendre votre projet.
                     </p>
                   </div>
 

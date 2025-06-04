@@ -232,7 +232,7 @@ const ProjectDetails: React.FC = () => {
               <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                 <div>
                   <h3 className="text-lg leading-6 font-medium text-gray-900">Transactions</h3>
-                  <p className="mt-1 max-w-2xl text-sm text-gray-500">Historique des investissements et ventes.</p>
+                  <p className="mt-1 max-w-2xl text-sm text-gray-500">Historique des proposition d'achat.</p>
                 </div>
               </div>
               <div className="border-t border-gray-200">
@@ -260,10 +260,10 @@ const ProjectDetails: React.FC = () => {
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">
                                 {transaction.type === 'investment' 
-                                  ? 'Investissement' 
+                                  ? "Proposition d'achat" 
                                   : transaction.type === 'sale' 
                                   ? 'Vente' 
-                                  : 'Développement'}
+                                  : "Proposition d'achat" }
                               </div>
                               <div className="text-sm text-gray-500">
                                 De {transaction.from} à {transaction.to}
@@ -307,27 +307,13 @@ const ProjectDetails: React.FC = () => {
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500 flex items-center">
                       <DollarSign className="mr-1 h-5 w-5 text-gray-400" />
-                      Investissement total
+                       Cout du Brevet
                     </dt>
                     <dd className="mt-1 text-xl font-semibold text-gray-900">
                       {project.investment?.toLocaleString('fr-FR')} €
                     </dd>
                   </div>
-                  <div className="sm:col-span-1">
-                    <dt className="text-sm font-medium text-gray-500 flex items-center">
-                      <Users className="mr-1 h-5 w-5 text-gray-400" />
-                      Investisseurs
-                    </dt>
-                    <dd className="mt-1 text-xl font-semibold text-gray-900">
-                      {project.investors}
-                    </dd>
-                  </div>
-                  <div className="sm:col-span-1">
-                    <dt className="text-sm font-medium text-gray-500">Développeurs</dt>
-                    <dd className="mt-1 text-xl font-semibold text-gray-900">
-                      {project.developersCount}
-                    </dd>
-                  </div>
+
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">Dernière mise à jour</dt>
                     <dd className="mt-1 text-sm text-gray-900">
